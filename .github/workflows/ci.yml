@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"
+    - name: Cache pypoetry
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pypoetry
+        key: pypoetry
+        restore-keys: |
+          pypoetry
+    - name: Install poetry
+      run: pipx install poetry
+    
+    - name: Run tests
+      run: poetry run pytest
