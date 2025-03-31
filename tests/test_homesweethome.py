@@ -19,12 +19,12 @@ def test_should_create_directory(sweet_home: SweetHome):
     directory = sweet_home.directory("some/dir")
     assert directory.exists()
 
+def test_should_override_base_dir_via_env():
+    os.environ['SOMEAPP_BASEDIR'] = '/tmp/foo'
+    sweet_home = SweetHome.create_temporary("someapp")
+    assert sweet_home.home_dir() == Path('/tmp/foo/.someapp')
+
 def test_should_override_setting_via_env():
     sweet_home = SweetHome.create_temporary("someapp-api")
     os.environ['SOMEAPPAPI_SOME__ENV'] = 'baz'
     assert sweet_home.read_setting("some.env") == "baz"
-
-def test_should_override_setting_via_env():
-    os.environ['SOMEAPP_BASEDIR'] = '/tmp/foo'
-    sweet_home = SweetHome.create_temporary("someapp")
-    assert sweet_home.home_dir() == Path('/tmp/foo/.someapp')
