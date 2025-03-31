@@ -33,3 +33,5 @@ jobs:
       run: poetry install
     - name: Run tests
       run: poetry run pytest
+    - name: Check depednencies
+      run: poetry run check-depz
