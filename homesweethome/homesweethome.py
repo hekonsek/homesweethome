@@ -49,6 +49,9 @@ class SweetHome:
     def read_setting(self, path: str, default=None):
         return self._dynaconf.get(path, default=default)
 
+    def read_required_setting(self, path: str):
+        return self._dynaconf[path]
+
     def write_setting(self, path: str, value):
         with open(self._yml_file, "r") as file:
             config_yml = yaml.safe_load(file) or {}

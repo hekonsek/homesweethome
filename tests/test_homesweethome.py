@@ -1,5 +1,6 @@
 import os
 from pytest import fixture
+import pytest
 from homesweethome.homesweethome import SweetHome
 from pathlib import Path
 
@@ -28,3 +29,7 @@ def test_should_override_setting_via_env():
     sweet_home = SweetHome.create_temporary("someapp-api")
     os.environ['SOMEAPPAPI_SOME__ENV'] = 'baz'
     assert sweet_home.read_setting("some.env") == "baz"
+
+def test_should_fail_if_no_required_value(sweet_home: SweetHome):
+    with pytest.raises(KeyError):
+        sweet_home.read_required_setting("no.such.setting")
