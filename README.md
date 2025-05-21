@@ -36,6 +36,13 @@ host = sweet_home.read_setting("server.host") # export MYAPP_SERVER__HOST
 port = sweet_home.read_setting("server.port") # export MYAPP_SERVER__PORT
 ```
 
+Dashes in application should be ignored in environment variables:
+
+```python
+sweet_home = SweetHome("myapp-api")
+host = sweet_home.read_setting("server.host") # export MYAPPAPI_SERVER__HOST
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
